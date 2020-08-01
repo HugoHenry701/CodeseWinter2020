@@ -4,7 +4,7 @@ const Router = require('express').Router();
 
 Router.get('/', (req, res) => {
     pool.query('select * from `category`', (err, data) => {
-        if (err) res.send(data)
+        if (err) {console.log(err)}
         res.send(data)
         // console.log(data)
     })
