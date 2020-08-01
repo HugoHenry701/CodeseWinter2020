@@ -1,6 +1,6 @@
 const express = require('express');
-const handlebars = require('express-handlebars')
-const bodyparser = require('body-parser')
+// const handlebars = require('express-handlebars')
+// const bodyparser = require('body-parser')
 const homeRouter = require('./router/homeRouter')
 const userRouter = require('./router/userRouter')
 const orderRouter = require('./router/orderRouter')
@@ -17,11 +17,11 @@ app.use('/order', orderRouter)
 
 
 
-app.engine("handlebars", handlebars({ defaultLayout: "defaultLayout" }))
-app.set("view engine", `handlebars`)
-app.use(bodyparser.urlencoded({ extended: false }))
+// app.engine("handlebars", handlebars({ defaultLayout: "defaultLayout" }))
+// app.set("view engine", `handlebars`)
+// app.use(bodyparser.urlencoded({ extended: false }))
 
-app.use(express.static("public"))
+// app.use(express.static("public"))
 
 
 let port = 7000;
