@@ -4,7 +4,7 @@ const config = {
     host: 'codedidungso.me',
     port: 3306,
     user: 'root',
-    password: '123456',
+    password: 'Codese2020',
     database: 'hieu'
 }
 
