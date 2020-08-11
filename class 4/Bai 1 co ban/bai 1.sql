@@ -45,19 +45,9 @@ from `contract` inner join `customer` on `customer`.`customerId`=`contract`.`cus
 where `hostName` = 'et';
 
 -- dua ra danh sach ngoi nha chua tung duoc ai thue
-(select `rentedhouse`.`hostName`,`rentedhouse`.`address`
-from `contract` 
-left outer join `customer` 
-on `customer`.`customerId`=`contract`.`customerId` 
-left outer join `rentedhouse` 
-on `rentedhouse`.`houseId` = `contract`.`houseId`)
-union all
-(select `rentedhouse`.`hostName`,`rentedhouse`.`address`
-from `contract` 
-right outer join `customer` 
-on `customer`.`customerId`=`contract`.`customerId` 
-right outer join `rentedhouse` 
-on `rentedhouse`.`houseId` = `contract`.`houseId`);
+select * 
+from `rentedhouse` as N 
+where `houseId` not in (select `houseId` from `contract`);
 
 -- dua ra gia thue cao nhat cua nhung ngoi nha dc thue it nhat mot lan
 select max(`price`) 
