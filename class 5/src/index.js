@@ -4,17 +4,18 @@ const app = express()
 
 // methot get post put(dung cho update) delete
 const hamxuli = (req,res)=>{
-    res.send('dmm')
+    res.send('Welcome')
 }
 app.get('/',hamxuli)
-app.use('/api/vi/category',categoryRoute)
+app.use('/api/v1/category',categoryRoute)
 
 
 
-
-app.listen(8000, err =>{
-    if(err){console.log(err)}
-    console.log('Running')
+let port = 8000;
+app.listen(port, err => {
+    if (err) { console.log(err) } else {
+        console.log(`App listen at ${port}`)
+    }
 })
 
 
