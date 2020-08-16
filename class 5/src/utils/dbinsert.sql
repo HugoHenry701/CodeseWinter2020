@@ -1,4 +1,3 @@
-#
 # TABLE STRUCTURE FOR: account
 #
 drop database if exists `hieu`;
@@ -22,6 +21,7 @@ CREATE TABLE `account` (
   `birthday` date DEFAULT NULL,
   `avatar` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
   `status` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `isDelete` int default 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`username`)
@@ -50,6 +50,9 @@ CREATE TABLE `category` (
   `display` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
   `description` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
   `imageUrl` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+    `isDelete` int default 0,
+      `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`categoryId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -84,6 +87,7 @@ CREATE TABLE `product` (
   `instock` int(11) DEFAULT NULL,
   `status` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
   `categoryId` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+    `isDelete` int default 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`productId`),
@@ -208,6 +212,7 @@ CREATE TABLE `order` (
   `amount` int(11) DEFAULT NULL,
   `note` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
   `status` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+    `isDelete` int default 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`orderId`),

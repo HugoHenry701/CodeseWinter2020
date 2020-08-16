@@ -1,10 +1,13 @@
 const categoryService = require('../services/categoryService');
-const { deleteCategorybyId } = require('../services/categoryService');
 
 const getAllCategory = async (req, res) => {
     try {
-        const data = await categoryService.getAllcategory()
-        res.send(data)
+        const { data, metadata } = await categoryService.getAllcategory(req.pagination)
+        res.send({
+            status: 1,
+            data,
+            metadata
+        })
     } catch (err) {
         console.log(err);
         res.send(err)
@@ -47,14 +50,14 @@ const updateCategorybyID = async (req, res) => {
             description: req.body.description,
             imageUrl: req.body.imageUrl
         };
-        const data = await categoryService.updateCategorybyId(updateCategory,id)
+        const data = await categoryService.updateCategorybyId(updateCategory, id)
         res.send('Update data successful')
     } catch (err) {
         console.log(err);
         res.send(err)
     }
 }
-const deleteCategorybyID = async(req, res) => {
+const deleteCategorybyID = async (req, res) => {
     try {
         const { id } = req.params;
         const deletedCategory = {
@@ -62,7 +65,7 @@ const deleteCategorybyID = async(req, res) => {
             description: req.body.description,
             imageUrl: req.body.imageUrl
         };
-        const data = await categoryService.deleteCategorybyId(deletedCategory,id)
+        const data = await categoryService.deleteCategorybyId(deletedCategory, id)
         res.send({
             status: 'Delete successfully'
         })
@@ -71,10 +74,11 @@ const deleteCategorybyID = async(req, res) => {
         res.send(err)
     }
 }
+
 module.exports = {
     getAllCategory,
     getCategorybyID,
     creatCategory,
     updateCategorybyID,
-    deleteCategorybyID
+    deleteCategorybyID,
 }

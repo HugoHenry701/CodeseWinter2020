@@ -1,13 +1,22 @@
 const db = require('../utils/db')
-const { deleteCategorybyID } = require('../controller/categoryController')
-
-const getAllcategory = async () => {
-    const sql = 'select * from category;'
-    const data = await db.queryMulti(sql)
-    return data
+const getAllcategory = async ({limit, offset}) => {
+    const sql = `select * from category
+    limit ?
+    offset ?`
+    const data = await db.queryMulti(sql,[limit, offset])
+    const countsql = `
+    select count(categoryId) as total from category`
+    const { total } = await db.queryOne(countsql)
+    return {
+        data,
+        metadata: {
+            length: data.length,
+            total
+        }
+    }
 }
 const getCategorybyId = async (id) => {
-    const sql = `select * from category where categoryId = ?;`
+    const sql = `select * from category where categoryId = ? and isDelete = 0;`
     const data = await db.queryOne(sql, [id])
     return data
 }
@@ -18,13 +27,28 @@ const creatCategory = async (newCategory) => {
     return data
 }
 const updateCategorybyId = async (updateCategory, id) => {
-    const sql = `update category set ? where categoryId = ?`
+    const sql = `update category set ? where categoryId = ? and isDelete = 0`
     const data = await db.query(sql, [updateCategory, id])
 
 }
-const deleteCategorybyId = async (deletedCategory,id) => {
- const sql = `update category set ? where categoryId = ?`
- const data = await db.query(sql,[deletedCategory,id])
+const deleteCategorybyId = async (deletedCategory, id) => {
+    const sql = `update category
+    set isDelete =1
+    where categoryId = ?`
+    await db.query(sql, [id])
+}
+const getAllCategoryId = async ()=>{
+    const sql =`
+    select categoryId,display
+    from category
+    where isDelete=0`
+    const data = await db.queryMulti(sql);
+    return{
+        data,
+        metadata:{
+            length: data.length
+        }
+    }
 }
 
 module.exports = {
@@ -32,7 +56,8 @@ module.exports = {
     getCategorybyId,
     creatCategory,
     updateCategorybyId,
-    deleteCategorybyId
+    deleteCategorybyId,
+    getAllCategoryId
 }
 
 
