@@ -36,8 +36,8 @@ const creatProduct = async ({ display, provider, description, imageUrl, priceIn,
     await db.query(sql, [display, provider, description, imageUrl, priceIn, priceOut, priceSale, shipday, instock, status, categoryId])
 
 }
-const updateProductbyID = async ({display, provider, description, imageUrl, priceIn, priceOut, priceSale, shipday, instock, status, categoryId,productId}) => {
-const sql =`
+const updateProductbyID = async ({ display, provider, description, imageUrl, priceIn, priceOut, priceSale, shipday, instock, status, categoryId, productId }) => {
+    const sql = `
 update product
 set display = ?,
  provider = ?, 
@@ -51,7 +51,7 @@ set display = ?,
  status = ?, 
  categoryId = ? 
  where productId = ? and isDelete = 0`
- await db.query(sql,[display, provider, description, imageUrl, priceIn, priceOut, priceSale, shipday, instock, status, categoryId,productId])
+    await db.query(sql, [display, provider, description, imageUrl, priceIn, priceOut, priceSale, shipday, instock, status, categoryId, productId])
 }
 const deleteProductbyID = async (id) => {
     const sql = `update product
@@ -59,11 +59,24 @@ const deleteProductbyID = async (id) => {
     where productId = ?`
     await db.query(sql, [id])
 }
+const parameterProduct = async () => {
+    const sql = `
+    select productId,display
+    from product
+    where isDelete=0`
+    const data = await db.queryMulti(sql);
+    return {
+        data,
+        metadata: {
+            length: data.length
+        }
+    }
+}
 module.exports = {
     getAllProduct,
     getProductbyID,
     creatProduct,
     updateProductbyID,
-    deleteProductbyID
-
+    deleteProductbyID,
+    parameterProduct
 }

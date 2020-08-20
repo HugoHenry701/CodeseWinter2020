@@ -17,10 +17,10 @@ const getAllCategory = async (req, res) => {
 const getCategorybyID = async (req, res) => {
     try {
         const { id } = req.params;
-        const data = await categoryService.getCategorybyId(id)
+        const { data } = await categoryService.getCategorybyId(id)
         res.send({
             status: 1,
-            data: data
+            data
         })
     } catch (err) {
         console.log(err);
@@ -29,13 +29,7 @@ const getCategorybyID = async (req, res) => {
 }
 const creatCategory = async (req, res) => {
     try {
-        const newCategory = {
-            categoryId: req.body.categoryId,
-            display: req.body.display,
-            description: req.body.description,
-            imageUrl: req.body.imageUrl
-        };
-        const data = await categoryService.creatCategory(newCategory)
+        await categoryService.creatCategory(req.body)
         res.send("New category has been created")
     } catch (err) {
         console.log(err);
@@ -45,12 +39,7 @@ const creatCategory = async (req, res) => {
 const updateCategorybyID = async (req, res) => {
     try {
         const { id } = req.params;
-        const updateCategory = {
-            display: req.body.display,
-            description: req.body.description,
-            imageUrl: req.body.imageUrl
-        };
-        const data = await categoryService.updateCategorybyId(updateCategory, id)
+        await categoryService.updateCategorybyId(reg.body, id)
         res.send('Update data successful')
     } catch (err) {
         console.log(err);
@@ -60,12 +49,7 @@ const updateCategorybyID = async (req, res) => {
 const deleteCategorybyID = async (req, res) => {
     try {
         const { id } = req.params;
-        const deletedCategory = {
-            display: req.body.display,
-            description: req.body.description,
-            imageUrl: req.body.imageUrl
-        };
-        const data = await categoryService.deleteCategorybyId(deletedCategory, id)
+        await categoryService.deleteCategorybyId(id)
         res.send({
             status: 'Delete successfully'
         })
