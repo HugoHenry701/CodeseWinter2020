@@ -2,7 +2,7 @@ const db = require('../utils/db')
 const getAllOrder = async ({ limit, offset }) => {
     const sql = `
 select orderId,username,productId,price,amount,note,status,created_at,updated_at
-from order
+from \`order\`
 where isDelete = 0
 limit ?
 offset ?
@@ -22,7 +22,7 @@ offset ?
 const getOrderbyId = async (id) => {
     const sql = `
     select orderId,username,productId,price,amount,note,status,created_at,updated_at
-    from account
+    from \`order\`
     where isDelete = 0
     and orderId = ?`
     const data = await db.queryOne(sql, [id])
@@ -32,13 +32,13 @@ const getOrderbyId = async (id) => {
 }
 const creatOrder = async ({ username, productId, price, amount, note, status }) => {
     const sql = `
-insert into order(orderId,username,productId,price,amount,note,status)
+insert into \`order\`(orderId,username,productId,price,amount,note,status)
 values(uuid(),?,?,?,?,?,?)`
     await db.query(sql, [username, productId, price, amount, note, status])
 }
-const updateOrderbyId = async ({ username, productId, price, amount, note, status, orderId }) => {
+const updateOrderbyId = async ({ username, productId, price, amount, note, status }) => {
     const sql = `
-    update order
+    update \`order\`
     set username=?,
     productId=?,
     price=?,
@@ -46,18 +46,18 @@ const updateOrderbyId = async ({ username, productId, price, amount, note, statu
     note=?,
     status=?
     where orderId = ? and isDelete = 0`
-    await db.query(sql, [username, productId, price, amount, note, status, orderId])
+    await db.query(sql, [username, productId, price, amount, note, status, id])
 }
 const deleteOrderbyId = async (id) => {
-    const sql = `update order
+    const sql = `update \`order\`
     set isDelete =1
     where orderId = ?`
     await db.query(sql, [id])
 }
 const parameterOrder = async () => {
     const sql = `
-    select orderId
-    from order
+    select orderId,username,productId
+    from \`order\`
     where isDelete=0`
     const data = await db.queryMulti(sql);
     return {

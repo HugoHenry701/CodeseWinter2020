@@ -1,68 +1,49 @@
-const categoryService = require('../services/categoryService');
+const categoryService = require('../services/categoryService')
 
 const getAllCategory = async (req, res) => {
-    try {
-        const { data, metadata } = await categoryService.getAllcategory(req.pagination)
-        res.send({
-            status: 1,
-            data,
-            metadata
-        })
-    } catch (err) {
-        console.log(err);
-        res.send(err)
-    }
-
-}
-const getCategorybyID = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { data } = await categoryService.getCategorybyId(id)
-        res.send({
-            status: 1,
-            data
-        })
-    } catch (err) {
-        console.log(err);
-        res.send(err)
-    }
-}
-const creatCategory = async (req, res) => {
-    try {
-        await categoryService.creatCategory(req.body)
-        res.send("New category has been created")
-    } catch (err) {
-        console.log(err);
-        res.send(err)
-    }
-}
-const updateCategorybyID = async (req, res) => {
-    try {
-        const { id } = req.params;
-        await categoryService.updateCategorybyId(reg.body, id)
-        res.send('Update data successful')
-    } catch (err) {
-        console.log(err);
-        res.send(err)
-    }
-}
-const deleteCategorybyID = async (req, res) => {
-    try {
-        const { id } = req.params;
-        await categoryService.deleteCategorybyId(id)
-        res.send({
-            status: 'Delete successfully'
-        })
-    } catch (err) {
-        console.log(err);
-        res.send(err)
-    }
+  console.log(req.query);
+  const { data, metadata } = await categoryService.getAll(req.pagination) 
+  res.send({
+    status: 1,
+    data,
+    metadata,
+  })
 }
 
+const getCategoryById = async (req, res) => {
+  const { id } = req.params;
+  const { data } = await categoryService.getById(id);
+  res.send({
+      status: 1,
+      data
+    })
+}
+const createCategory = async (req, res) => {
+  await categoryService.create(req.body)
+  res.send({
+    status: 1,
+  })
+}
+const updateCategorybyId = async (req, res) => {
+  const { id } = req.params;
+  await categoryService.updateById(id, req.body)
+  res.send({
+    status: 1,// true - 1, false 0
+  })
+}
+const deleteCategorybyId = async (req, res) => {
+  const { id } = req.params;
+  await categoryService.deleteById(id)
+  res.send({
+    status: 1,// true - 1, false 0
+  })
+}
+
+// router => controllers => services 
 module.exports = {
-    getAllCategory,
-    getCategorybyID,
-    creatCategory,
-    updateCategorybyID,
-    deleteCategorybyID,
+  getAllCategory,
+  getCategoryById,
+  createCategory,
+  updateCategorybyId,
+  deleteCategorybyId
 }

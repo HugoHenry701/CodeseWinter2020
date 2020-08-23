@@ -1,10 +1,20 @@
 const  Route = require('express').Router();
 const orderController = require('../controller/order')
+const {trycatch} = require('../middlewares/errorHandle')
 
-Route.get('/', orderController.getAllOrder)
-Route.get('/:id', orderController.getOrderbyId)
-Route.post('/', orderController.creatOrder)
-Route.put('/:id', orderController.updateOrder)
-Route.delete('/:id', orderController.deleteOrder)
+Route.get('/',
+  trycatch(orderController.getAllOrder));
+
+Route.get('/:id',
+  trycatch(orderController.getOrderById));
+
+Route.post('/',
+  trycatch(orderController.createOrder));
+
+Route.put('/:id',
+  trycatch(orderController.updateOrder));
+  
+Route.delete('/:id',
+  trycatch(orderController.deleteOrder));
 
 module.exports = Route
