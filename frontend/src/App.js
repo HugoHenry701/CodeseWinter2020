@@ -1,32 +1,18 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {
+  TextField,
+  Typography,
+  Button,
+} from '@material-ui/core'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
-function app(props) {
-  const { username, setUsername } = useState
-  const { age, setAge } = useState
-  const { password, setPassword } = useState
-  const { birthday, setBirthDay } = useState
+
+function App(props) {
+  const [ username, setUsername ] = useState()
+  const [ age, setAge ] = useState()
+  const [ password, setPassword ] = useState()
+  const [ birthday, setBirthDay ] = useState()
   function handleChangeAge(event) {
     console.log(event.target.value)
     setAge(event.target.value)
@@ -46,22 +32,29 @@ function app(props) {
   function handleclick(event) {
     alert('clicky')
   }
+  const buttonStyle = {
+    color:'#ffffff',
+    backgroundColor:'#4a148c'
+  }
   return <div>
-    <input type='number' onChange={handleChangeAge}></input>
-    <input type='date' onChange={handleChangeBirthday} />
-    <input type='text' onChange={handleChangeUser} />
-    <input type='password' onChange={handleChangePassword} />
-    <input type='' />
-    <input type='' />
-    <button onClick={handleclick}><h1>nut bam</h1></button>
+    <TextField type='number' onChange={handleChangeAge}/>
+    <TextField type='date' onChange={handleChangeBirthday} />
+    <TextField type='text' onChange={handleChangeUser} />
+    <TextField type='password' onChange={handleChangePassword} />
+    {/* <TextField type='' />
+    <TextField type='' /> */}
     <br></br>
-    <h3>{age}</h3>
+    <Button onClick={handleclick} variant='contained' style={buttonStyle} color='primary'><Typography>nut bam 1</Typography></Button>
+    <Button onClick={handleclick} variant='text' color='secondary'><Typography>nut bam 2</Typography></Button>
+    <Button onClick={handleclick} variant='outlined' color='inherit '><Typography>nut bam 3</Typography></Button>
     <br></br>
-    <h3>{birthday}</h3>
+    <Typography>{age}</Typography>
     <br></br>
-    <h3>{username}</h3>
+    <Typography>{birthday}</Typography>
     <br></br>
-    <h3>{password}</h3>
+    <Typography>{username}</Typography>
+    <br></br>
+    <Typography>{password}</Typography>
 
 
   </div>
