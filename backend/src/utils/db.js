@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const { param } = require('../routers/parameter');
+const { parameter } = require('../routers/parameter');
 
 
 const pool = mysql.createPool({

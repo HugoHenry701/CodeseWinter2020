@@ -14,7 +14,7 @@ const app = express()
 // 1. middlewares ( bodyparser , ... )
 app.use(bodyParser.json())
 var accessLogStream = rfs.createStream('access.log', {
-  interval: '1d', // rotate daily
+  interval: '1d', 
   path: path.join(__dirname, 'log')
 })
 app.use(morgan('combined', { stream: accessLogStream }))
@@ -30,7 +30,7 @@ app.use((req, res, next) => {
 
 // 2. router
 const parameterRouter = require('./routers/parameter')
-const categoryRouter = require('./routers/categoryRouter')
+const categoryRouter = require('./routers/category')
 const productRouter = require('./routers/product')
 const orderRouter = require('./routers/order')
 // const accountRouter = require('./routers/account')

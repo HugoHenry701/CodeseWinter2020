@@ -1,4 +1,4 @@
-const categoryService = require('../services/categoryService')
+const categoryService = require('../services/category')
 
 const getAllCategory = async (req, res) => {
   console.log(req.query);
@@ -10,7 +10,7 @@ const getAllCategory = async (req, res) => {
   })
 }
 
-const getCategoryById = async (req, res) => {
+const getCategorybyId = async (req, res) => {
   const { id } = req.params;
   const { data } = await categoryService.getById(id);
   res.send({
@@ -42,7 +42,7 @@ const deleteCategorybyId = async (req, res) => {
 // router => controllers => services 
 module.exports = {
   getAllCategory,
-  getCategoryById,
+  getCategorybyId,
   createCategory,
   updateCategorybyId,
   deleteCategorybyId

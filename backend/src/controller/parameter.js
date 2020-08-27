@@ -1,4 +1,4 @@
-const categoryService = require('../services/categoryService');
+const categoryService = require('../services/category');
 const productService = require('../services/product');
 const accountService = require('../services/account');
 const orderService = require('../services/order');

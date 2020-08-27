@@ -1,4 +1,4 @@
-const trycatch = (f) => async (req, res, next) => {
+const Trycatch = (f) => async (req, res, next) => {
     try {
       await f(req,res)
     } catch (error) {
@@ -19,5 +19,5 @@ const trycatch = (f) => async (req, res, next) => {
   
   module.exports = {
     errorHandle,
-    trycatch
+    Trycatch
   }

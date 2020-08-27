@@ -1,6 +1,6 @@
 const express = require('express')
 const db = require('../utils/db')
-const {trycatch} = require('./errorHandle')
+const {Trycatch} = require('./errorHandle')
 
 const CRUD = (
   _tableName,
@@ -23,7 +23,7 @@ const CRUD = (
   
   const Router = express.Router();
   if (GET) {
-    Router.get('/', tryCatch(async (req, res) => {
+    Router.get('/', Trycatch(async (req, res) => {
       const sql = `
       SELECT ${primaryKeyName},${fieldNames}
       FROM ${tableName}

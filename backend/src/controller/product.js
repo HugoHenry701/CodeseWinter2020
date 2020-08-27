@@ -16,7 +16,7 @@ const getProductbyId = async (req, res) => {
         data
     })
 }
-const creatProduct = async (req, res) => {
+const createProduct = async (req, res) => {
     await productService.creatProduct(req.body)
     res.send({
         status: 1
@@ -40,7 +40,7 @@ const deleteProduct = async (req, res) => {
 module.exports = {
     getAllproduct,
     getProductbyId,
-    creatProduct,
+    createProduct,
     updateProduct,
     deleteProduct,
 }
