@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
 import {
   TextField,
   Typography,
@@ -10,7 +8,7 @@ import {
 } from '@material-ui/core'
 
 
-function App(props) {
+function HomePage(props) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   function handleChangeUser(event) {
@@ -26,6 +24,8 @@ function App(props) {
   }
   function handleSignUp(event) {
     alert('clicky')
+    console.log(props.params1)
+    props.params3()
   }
   function handleKeyPress(event) {
     if (event.key === 'Enter') handleSignIn();
@@ -36,7 +36,8 @@ function App(props) {
     color: '#ffffff',
     backgroundColor: '#4a148c',
     width: 200,
-    height: 10,
+    margin: 5,
+    height:10
   }
   const style = {
     backgroundColor: "#00e5ff",
@@ -81,4 +82,4 @@ class MyComponent extends React.Component {
     return
   }
 }
-export default App;
+export default HomePage;
