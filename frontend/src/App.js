@@ -1,84 +1,22 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import {
-  TextField,
-  Typography,
-  Button,
-  Paper,
-  Padding,
-} from '@material-ui/core'
-
+import HomePage from './views/HomePage/HomePage';
 
 function App(props) {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  function handleChangeUser(event) {
-    console.log(event.target.value)
-    setUsername(event.target.value)
+  const [version, setVersion] = useState(1)
+  function hamxuli() {
+    alert('đây là hàm xử lí')
   }
-  function handleChangePassword(event) {
-    console.log(event.target.value)
-    setPassword(event.target.value)
-  }
-  function handleSignIn(event) {
-    if (password.length < 6) alert('password yeu')
-  }
-  function handleSignUp(event) {
-    alert('clicky')
-  }
-  function handleKeyPress(event) {
-    if (event.key === 'Enter') handleSignIn();
-  }
-  const inputStyle = {
-  }
-  const buttonStyle = {
-    color: '#ffffff',
-    backgroundColor: '#4a148c',
-    width: 200,
-    height: 10,
-  }
-  const style = {
-    backgroundColor: "#00e5ff",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignIteams: "center",
-    flex: 1,
-    
-
-
-  }
-  return <Paper  style={style}>
-    <TextField label='Tai khoan' type='text' style={inputStyle} onKeyPress={handleKeyPress} onChange={handleChangeUser} />
-    <TextField label='Mat khau' type='password' style={inputStyle} onChange={handleChangePassword} />
-    <Button onClick={handleSignIn} variant='contained' style={buttonStyle} color='primary'><Typography>Login</Typography></Button>
-    <Button onClick={handleSignUp} variant='text' style={buttonStyle} color='primary'><Typography>Sign Up</Typography></Button>
-    {/* <Typography>{username}</Typography>
-    <Typography>{password}</Typography> */}
-  </Paper>
+  return <div>
+  <HomePage
+    params1='thien'
+    params2={hamxuli}
+    version={version}
+    setVersion={setVersion}
+  >
+    </HomePage>
+    <h1>{version}</h1>
+  </div>
+  
 }
 
-class MyComponent extends React.Component {
-  constructor(props) {
-    this.state = {
-      username: "hieu",
-      age: 20,
-      password: "12345"
-    }
-
-  }
-  componentWillMount() {
-
-  }
-  componentWillReceiveProps() {
-
-  }
-  componentWillUpdate() {
-
-  }
-  render() {
-    return
-  }
-}
 export default App;
