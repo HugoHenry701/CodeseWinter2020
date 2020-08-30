@@ -7,14 +7,8 @@ function App(props) {
     alert('đây là hàm xử lí')
   }
   return <div>
-  <HomePage
-    params1='thien'
-    params2={hamxuli}
-    version={version}
-    setVersion={setVersion}
-  >
+  <HomePage  >
     </HomePage>
-    <h1>{version}</h1>
   </div>
   
 }
