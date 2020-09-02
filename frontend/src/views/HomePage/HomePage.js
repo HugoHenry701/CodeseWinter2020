@@ -21,10 +21,10 @@ class HomePage extends React.Component {
       currentProduct: [],
       total: 0,
       getPage: 1,
-      page: 0,
+      page: 1,
       all: 100,
       size: 8,
-      offset: 0,
+      offset: 8,
 
     }
   }
@@ -41,7 +41,7 @@ class HomePage extends React.Component {
       console.log(res.data.data)
       this.setState({
         allProduct: res.data.data,
-        // currentProduct: res.data.data,
+        currentProduct: res.data.data,
         total: res.data.metadata.total
       })
     } catch (err) {
@@ -69,24 +69,24 @@ class HomePage extends React.Component {
   }
   prevPage = async () => {
     if (this.state.page > 1) {
-    await this.setState({
+      await this.setState({
         ...this.state,
         page: this.state.page - 1,
-        offset: (this.state.page - 1) * this.state.size
+        offset: (this.state.page - 2) * this.state.size
       })
       this.onPageChanged()
 
-    }    else {
+    } else {
       alert('First page already')
     }
 
   }
   nextPage = async () => {
     if (this.state.page < Math.ceil(this.state.total / this.state.size)) {
-     await this.setState({
+      await this.setState({
         ...this.state,
         page: this.state.page + 1,
-        offset: (this.state.page + 1) * this.state.size
+        offset: (this.state.page) * this.state.size
       })
       this.onPageChanged()
     } else {
