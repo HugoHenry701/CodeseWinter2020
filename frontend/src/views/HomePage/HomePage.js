@@ -1,4 +1,5 @@
 import React from 'react';
+import InfoIcon from '@material-ui/icons/Info';
 import {
   TextField,
   Typography,
@@ -8,10 +9,16 @@ import {
   CardHeader,
   CardContent,
   CardActions,
-  Divider
+  Divider,
+  GridListTileBar,
+  GridListTile,
+  GridList,
+  ListSubheader,
+  IconButton,
+  makeStyles,
+  Icon,
 } from '@material-ui/core'
 import axios from 'axios'
-
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -24,7 +31,7 @@ class HomePage extends React.Component {
       page: 1,
       all: 100,
       size: 8,
-      offset: 8,
+      offset: 0,
 
     }
   }
@@ -41,25 +48,12 @@ class HomePage extends React.Component {
       console.log(res.data.data)
       this.setState({
         allProduct: res.data.data,
-        currentProduct: res.data.data,
+        currentProduct: res.data.data.slice(0, 8),
         total: res.data.metadata.total
       })
     } catch (err) {
       console.log(err)
     }
-  }
-  hamRenderProduct = (product) => {
-    return <Card>
-      <CardHeader title={product["display"]} style={{ backgroundColor: "#fff176" }} />
-      <Divider></Divider>
-      <CardContent>
-        <Typography>{product.description}</Typography>
-      </CardContent>
-      <Divider></Divider>
-      <CardActions>
-        <Button>Chi tiet</Button>
-      </CardActions>
-    </Card>
   }
   onPageChanged = () => {
     const currentProduct = this.state.allProduct.slice(this.state.offset, this.state.offset + this.state.size)
@@ -85,7 +79,7 @@ class HomePage extends React.Component {
     if (this.state.page < Math.ceil(this.state.total / this.state.size)) {
       await this.setState({
         ...this.state,
-        page: this.state.page + 1,
+        page: this.state.page + 1 ,
         offset: (this.state.page) * this.state.size
       })
       this.onPageChanged()
@@ -94,6 +88,22 @@ class HomePage extends React.Component {
     }
   }
   render() {
+    const classes = makeStyles((theme) => ({
+      root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+        overflow: 'hidden',
+        backgroundColor: theme.palette.background.paper,
+      },
+      gridList: {
+        width: 500,
+        height: 450,
+      },
+      icon: {
+        color: 'rgba(255, 255, 255, 0.54)',
+      },
+    }))
     return <div>
       <Typography>Total:{this.state.total}</Typography>
       <Typography>Page:{this.state.page}</Typography>
@@ -102,11 +112,33 @@ class HomePage extends React.Component {
       <Typography>Paging:{this.state.page}-{Math.ceil(this.state.total / this.state.size)}</Typography>
       <Button onClick={this.prevPage}>Prev</Button>
       <Button onClick={this.nextPage}>Next</Button>
-      {
-        this.state.currentProduct.map(
-          product => this.hamRenderProduct(product)
-        )
-      }
+      <div className={classes.root} >
+        <GridList cellHeight={180} className={classes.gridList}>
+          <GridListTile key="Subheader" cols={2} style={{ height: 'auto', }}>
+            <ListSubheader component="div">Guitar Shop</ListSubheader>
+          </GridListTile>
+          {
+            this.state.currentProduct.map(
+              (product) => (
+                <GridListTile style={{position: 'relative' }} key={product.productId} >
+                  <img style={{ maxWidth: 100, maxHeight: 100 }} src={product.imageUrl} alt={product.display} />
+                  <GridListTileBar
+                    style={{ position: 'absolute' }}
+                    title={product.display}
+                    subtitle={<span>${product.priceSale}</span>}
+                    actionIcon={
+                      <IconButton aria-label={`info about ${product.display}`} className={classes.icon}>
+                        <InfoIcon />
+                      </IconButton>
+                    }
+                  />
+                </GridListTile>
+              )
+            )
+          }
+        </GridList>
+      </div>
+
     </div>
   }
 }
