@@ -3,6 +3,7 @@ const dotenv = require('dotenv')
 dotenv.config()
 
 const express = require('express')
+const cors = require('cors')
 const path = require('path')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
@@ -13,6 +14,7 @@ const app = express()
 
 // 1. middlewares ( bodyparser , ... )
 app.use(bodyParser.json())
+app.use(cors())
 var accessLogStream = rfs.createStream('access.log', {
   interval: '1d', 
   path: path.join(__dirname, 'log')
