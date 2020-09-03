@@ -18,8 +18,7 @@ import {
   makeStyles,
   Icon,
 } from '@material-ui/core'
-import axios from 'axios'
-
+import API from '../../API'
 class HomePage extends React.Component {
   constructor(props) {
     super(props)
@@ -36,24 +35,21 @@ class HomePage extends React.Component {
     }
   }
   async componentDidMount() {
-    try {
-      const linkApi = 'http://localhost:8000/api/v1/product'
-      const res = await axios.get(linkApi, {
-        params: {
-          page: this.state.getPage,
-          size: this.state.all
-        }
-      })
+    try{
+    const res = await API.product.getAllProduct({
+      page: this.state.getPage,
+      size: this.state.all
+    })
 
-      console.log(res.data.data)
-      this.setState({
-        allProduct: res.data.data,
-        currentProduct: res.data.data.slice(0, 8),
-        total: res.data.metadata.total
-      })
-    } catch (err) {
-      console.log(err)
-    }
+    console.log(res.data.data)
+    this.setState({
+      allProduct: res.data.data,
+      currentProduct: res.data.data.slice(0, 8),
+      total: res.data.metadata.total
+    })
+  }catch(err){
+    console.log(err);
+  }
   }
   onPageChanged = () => {
     const currentProduct = this.state.allProduct.slice(this.state.offset, this.state.offset + this.state.size)
@@ -79,7 +75,7 @@ class HomePage extends React.Component {
     if (this.state.page < Math.ceil(this.state.total / this.state.size)) {
       await this.setState({
         ...this.state,
-        page: this.state.page + 1 ,
+        page: this.state.page + 1,
         offset: (this.state.page) * this.state.size
       })
       this.onPageChanged()
@@ -104,7 +100,7 @@ class HomePage extends React.Component {
         color: 'rgba(255, 255, 255, 0.54)',
       },
     }))
-    return <div>
+    return <div style={{ padding: 8 }}>
       <Typography>Total:{this.state.total}</Typography>
       <Typography>Page:{this.state.page}</Typography>
       <Typography>Size:{this.state.size}</Typography>
@@ -120,10 +116,10 @@ class HomePage extends React.Component {
           {
             this.state.currentProduct.map(
               (product) => (
-                <GridListTile style={{position: 'relative' }} key={product.productId} >
+                <GridListTile style={{ padding: 8 }} key={product.productId} >
                   <img style={{ maxWidth: 100, maxHeight: 100 }} src={product.imageUrl} alt={product.display} />
                   <GridListTileBar
-                    style={{ position: 'absolute' }}
+                    style={{}}
                     title={product.display}
                     subtitle={<span>${product.priceSale}</span>}
                     actionIcon={
