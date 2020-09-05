@@ -76,22 +76,22 @@ export default class index extends Component {
                     }
                     className={classes.root}
                 >
-                    <ListItem button>
-                        <Link to="/">
+                    <Link to="/">
+                        <ListItem button>
                             <ListItemIcon>
                                 <Home />
                             </ListItemIcon>
-                        </Link>
-                        <ListItemText primary="HomePage" />
-                    </ListItem>
-                    <ListItem button>
-                        <Link to="/SignIn">
+                            <ListItemText primary="HomePage" />
+                        </ListItem>
+                    </Link>
+                    <Link to="/SignIn">
+                        <ListItem button>
                             <ListItemIcon>
                                 <VpnKey />
                             </ListItemIcon>
-                        </Link>
-                        <ListItemText primary="SignIn" />
-                    </ListItem>
+                            <ListItemText primary="Login" />
+                        </ListItem>
+                    </Link>
                     <ListItem button onClick={this.handleClick}>
                         <ListItemIcon>
                             <Category />
@@ -100,7 +100,7 @@ export default class index extends Component {
                         {this.state.open ? <ExpandLess /> : <ExpandMore />}
                     </ListItem>
                     <Collapse in={this.state.open} timeout='auto' unmountOnExit>
-                            <CategoryForm listCategory={this.state.listCategory}></CategoryForm>
+                        <CategoryForm listCategory={this.state.listCategory}></CategoryForm>
                     </Collapse>
                 </List>
             </Paper>

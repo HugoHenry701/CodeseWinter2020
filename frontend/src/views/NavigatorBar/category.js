@@ -13,7 +13,7 @@ export default class category extends Component {
     render() {
         const classes = makeStyles((theme) => ({
             nested: {
-                paddingLeft: theme.spacing(8)
+                paddingLeft: theme.spacing(50)
             }
         }))
         return (
