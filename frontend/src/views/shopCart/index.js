@@ -4,7 +4,9 @@ export default class shopCart extends Component {
     render() {
         return (
             <div>
-                dep trai
+                <h1>
+                    Let's buy
+                </h1>
             </div>
         )
     }
