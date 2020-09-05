@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import InfoIcon from '@material-ui/icons/Info';
-import Backdrop from '@material-ui/core/Backdrop';
+import Tooltip from '@material-ui/core/Tooltip';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import {
   GridListTileBar,
@@ -10,20 +10,9 @@ import {
   IconButton,
   makeStyles,
   Typography,
+  Button,
 } from '@material-ui/core'
 export default class product extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      open: false,
-    }
-  }
-  handleClose = () => {
-    this.setState(false)
-  }
-  handleToggle = () => {
-    this.setState(!this.useState.open)
-  }
   render() {
     const classes = makeStyles((theme) => ({
       root: {
@@ -40,9 +29,8 @@ export default class product extends Component {
       icon: {
         color: 'rgba(255, 255, 255, 0.54)',
       },
-      backdrop: {
-        zIndex: theme.zIndex.drawer + 1,
-        color: '#fff',
+      noMaxWidth: {
+        maxWidth: 'none',
       },
     }))
     return (
@@ -65,20 +53,20 @@ export default class product extends Component {
                         <IconButton href='/shopCart' color="primary" aria-label="add to shopping cart">
                           <AddShoppingCartIcon />
                         </IconButton>
-                        <IconButton onClick={this.handleToggle} className={classes.icon}>
-                          <InfoIcon />
-                        </IconButton>
+                        <Tooltip title={product.description} className={classes.noMaxWidth}>
+                          <IconButton className={classes.icon}>
+                            <InfoIcon />
+                          </IconButton>
+                        </Tooltip>
                       </div>
                     }
                   />
-                  <Backdrop className={classes.backdrop} open={this.state.open} onClick={this.handleClose}>
-                    <Typography>{product.description}</Typography>
-                  </Backdrop>
                 </GridListTile>
               )
             )
           }
         </GridList>
-      </div>)
+      </div>
+    )
   }
 }
