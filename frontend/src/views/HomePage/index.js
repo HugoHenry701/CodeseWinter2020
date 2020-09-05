@@ -1,71 +1,48 @@
 import React from 'react';
+import { withSnackbar } from 'notistack'
 import InfoIcon from '@material-ui/icons/Info';
 import {
-  TextField,
   Typography,
   Button,
-  Paper,
-  Card,
-  CardHeader,
-  CardContent,
-  CardActions,
-  Divider,
-  GridListTileBar,
-  GridListTile,
-  GridList,
-  ListSubheader,
-  IconButton,
-  makeStyles,
-  Icon,
+
 } from '@material-ui/core'
 import API from '../../API'
+import ProductForm from './product'
 class HomePage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      allProduct: [],
-      currentProduct: [],
+      listProduct: [],
       total: 0,
-      getPage: 1,
       page: 1,
-      all: 100,
       size: 8,
-      offset: 0,
-
     }
   }
-  async componentDidMount() {
-    try{
+  async fetchData() {
     const res = await API.product.getAllProduct({
-      page: this.state.getPage,
-      size: this.state.all
+      page: this.state.page,
+      size: this.state.size
     })
 
     console.log(res.data.data)
-    this.setState({
-      allProduct: res.data.data,
-      currentProduct: res.data.data.slice(0, 8),
-      total: res.data.metadata.total
-    })
-  }catch(err){
-    console.log(err);
+    if (res.status) {
+      this.setState({
+        listProduct: res.data.data,
+        total: res.data.metadata.total
+      })
+    } else {
+      this.props.enqueueSnackbar(res.message, { variant: 'error' })
+    }
   }
-  }
-  onPageChanged = () => {
-    const currentProduct = this.state.allProduct.slice(this.state.offset, this.state.offset + this.state.size)
-    this.setState({
-      currentProduct
-    })
+  async componentDidMount() {
+    await this.fetchData()
   }
   prevPage = async () => {
     if (this.state.page > 1) {
       await this.setState({
-        ...this.state,
-        page: this.state.page - 1,
-        offset: (this.state.page - 2) * this.state.size
+        page: this.state.page - 1
       })
-      this.onPageChanged()
-
+      await this.fetchData()
     } else {
       alert('First page already')
     }
@@ -74,69 +51,28 @@ class HomePage extends React.Component {
   nextPage = async () => {
     if (this.state.page < Math.ceil(this.state.total / this.state.size)) {
       await this.setState({
-        ...this.state,
-        page: this.state.page + 1,
-        offset: (this.state.page) * this.state.size
+        page: this.state.page + 1
       })
-      this.onPageChanged()
+      await this.fetchData()
     } else {
       alert('Page run out')
     }
   }
   render() {
-    const classes = makeStyles((theme) => ({
-      root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-around',
-        overflow: 'hidden',
-        backgroundColor: theme.palette.background.paper,
-      },
-      gridList: {
-        width: 500,
-        height: 450,
-      },
-      icon: {
-        color: 'rgba(255, 255, 255, 0.54)',
-      },
-    }))
     return <div style={{ padding: 8 }}>
-      <Typography>Total:{this.state.total}</Typography>
+      {/* <Typography>Total:{this.state.total}</Typography>
       <Typography>Page:{this.state.page}</Typography>
       <Typography>Size:{this.state.size}</Typography>
-      <Typography>offset:{this.state.offset}</Typography>
-      <Typography>Paging:{this.state.page}-{Math.ceil(this.state.total / this.state.size)}</Typography>
-      <Button onClick={this.prevPage}>Prev</Button>
-      <Button onClick={this.nextPage}>Next</Button>
-      <div className={classes.root} >
-        <GridList cellHeight={180} className={classes.gridList}>
-          <GridListTile key="Subheader" cols={2} style={{ height: 'auto', }}>
-            <ListSubheader component="div">Guitar Shop</ListSubheader>
-          </GridListTile>
-          {
-            this.state.currentProduct.map(
-              (product) => (
-                <GridListTile style={{ padding: 8 }} key={product.productId} >
-                  <img style={{ maxWidth: 100, maxHeight: 100 }} src={product.imageUrl} alt={product.display} />
-                  <GridListTileBar
-                    style={{}}
-                    title={product.display}
-                    subtitle={<span>${product.priceSale}</span>}
-                    actionIcon={
-                      <IconButton aria-label={`info about ${product.display}`} className={classes.icon}>
-                        <InfoIcon />
-                      </IconButton>
-                    }
-                  />
-                </GridListTile>
-              )
-            )
-          }
-        </GridList>
+      <Typography>offset:{this.state.offset}</Typography> */}
+      <div style={{ padding:32 ,display: "flex", justifyContent: 'space-between' }}>
+        <Button variant="contained" color="primary" onClick={this.prevPage}>Prev</Button>
+        <Typography>{this.state.page}-{Math.ceil(this.state.total / this.state.size)}</Typography>
+        <Button variant="contained" color="primary" onClick={this.nextPage}>Next</Button>
       </div>
-
+      <ProductForm listProduct={this.state.listProduct} ></ProductForm>
     </div>
   }
 }
 
-export default HomePage;
+export default withSnackbar(HomePage);
+

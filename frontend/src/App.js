@@ -8,6 +8,7 @@ import {
 import HomePage from './views/HomePage';
 import SignIn from './views/SignIn'
 import NotFound from './views/NotFound'
+import shopCart from './views/shopCart'
 import {
   Switch,
   BrowserRouter,
@@ -30,6 +31,10 @@ function App(props) {
         <Route
           component={HomePage}
           exact path="/"
+        />
+        <Route
+          component={shopCart}
+          exact path="/shopCart"
         />
         <Route
           component={SignIn}
