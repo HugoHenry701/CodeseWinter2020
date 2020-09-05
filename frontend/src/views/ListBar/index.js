@@ -71,7 +71,6 @@ export default class index extends Component {
                     aria-labelledby='nested-list-subheader'
                     subheader={
                         <ListSubheader component='div' id='nested-list-subheader'>
-                            Menu
                         </ListSubheader>
                     }
                     className={classes.root}

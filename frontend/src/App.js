@@ -1,23 +1,4 @@
 import React from 'react';
-import {
-  Paper,
-  Typography,
-  Button,
-  ListSubheader,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Collapse,
-} from '@material-ui/core'
-import {
-  ExpandLess,
-  ExpandMore,
-  Home,
-  VpnKey,
-  Category,
-} from '@material-ui/icons'
-import { makeStyles } from '@material-ui/core/styles'
 import { withSnackbar } from 'notistack'
 import HomePage from './views/HomePage';
 import SignIn from './views/SignIn'
@@ -27,19 +8,18 @@ import {
   Switch,
   BrowserRouter,
   Route,
-  Link
 } from 'react-router-dom'
-import NavForm from './views/NavigatorBar'
-
-
+import ListForm from './views/ListBar'
+import NavForm from './views/NavBar'
 
 class App extends React.Component {
 
   render() {
     return (
       <BrowserRouter>
+        <NavForm></NavForm>
         <div style={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
-          <NavForm></NavForm>
+          <ListForm></ListForm>
           <Switch>
             <Route
               component={HomePage}
