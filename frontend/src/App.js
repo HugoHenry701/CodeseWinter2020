@@ -3,8 +3,21 @@ import {
   Paper,
   Typography,
   Button,
-
+  ListSubheader,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Collapse,
 } from '@material-ui/core'
+import {
+  ExpandLess,
+  ExpandMore,
+  Home,
+  VpnKey,
+  Category,
+} from '@material-ui/icons'
+import { makeStyles } from '@material-ui/core/styles'
 import { withSnackbar } from 'notistack'
 import HomePage from './views/HomePage';
 import SignIn from './views/SignIn'
@@ -16,50 +29,17 @@ import {
   Route,
   Link
 } from 'react-router-dom'
-import API from './API'
-import CategoryForm from './views/NavigatorBar/category'
+import NavForm from './views/NavigatorBar'
 
 
 
 class App extends React.Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      listCategory: [],
-      total: 0,
-    }
-  }
-  async fetchData() {
-    const res = await API.category.parameterCategory()
-    console.log(res.data.data)
-    if (res.status) {
-      this.setState({
-        listCategory: res.data.data,
-        total: res.data.metadata.length
-      })
-    } else {
-      this.props.enqueueSnackbar(res.message, { varriant: 'error' })
-    }
-  }
-  async componentDidMount() {
-    await this.fetchData
-  }
   render() {
     return (
       <BrowserRouter>
         <div style={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
-          <Paper style={{ padding: 8, display: 'flex', flexDirection: 'column' }}>
-            <Link to="/">
-              <Button>HomePage</Button>
-            </Link>
-            <Link to="/SignIn" >
-              <Button>SignIn</Button>
-            </Link>
-            <Typography>Category</Typography>
-            <CategoryForm listCategory={this.state.listCategory}></CategoryForm>
-          </Paper>
-
+          <NavForm></NavForm>
           <Switch>
             <Route
               component={HomePage}
