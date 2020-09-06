@@ -68,7 +68,7 @@ class HomePage extends React.Component {
       }
     }))
     return (
-      <main style={{marginTop:"65px",}} className={classes.content} >
+      <main style={{marginTop:"65px", }} className={classes.content} >
         {/* <Typography>Total:{this.state.total}</Typography>
       <Typography>Page:{this.state.page}</Typography>
       <Typography>Size:{this.state.size}</Typography>

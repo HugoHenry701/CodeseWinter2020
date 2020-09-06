@@ -43,9 +43,8 @@ export default class product extends Component {
             this.props.listProduct.map(
               (product) => (
                 <GridListTile style={{ padding: 8 }} key={product.productId} >
-                  <img style={{ maxHeight: '100%', maxWidth: '100%' }} src={product.imageUrl} alt={product.display} />
+                  <img style={{display:'block',maxWidth:"100%",maxHeight:"100%"}} src={product.imageUrl} alt={product.display} />
                   <GridListTileBar
-                    style={{}}
                     title={product.display}
                     subtitle={<span>${product.priceSale}</span>}
                     actionIcon={
