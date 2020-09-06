@@ -1,5 +1,6 @@
 import React from 'react';
 import { withSnackbar } from 'notistack'
+import { makeStyles } from '@material-ui/core/styles';
 import InfoIcon from '@material-ui/icons/Info';
 import {
   Typography,
@@ -59,18 +60,27 @@ class HomePage extends React.Component {
     }
   }
   render() {
-    return <div style={{ padding: 8 }}>
-      {/* <Typography>Total:{this.state.total}</Typography>
+    const classes = makeStyles((theme) => ({
+      toolbar: theme.mixins.toolbar,
+      content: {
+        flexGrow: 1,
+        padding: theme.spacing(3)
+      }
+    }))
+    return (
+      <main style={{marginTop:"65px",}} className={classes.content} >
+        {/* <Typography>Total:{this.state.total}</Typography>
       <Typography>Page:{this.state.page}</Typography>
       <Typography>Size:{this.state.size}</Typography>
       <Typography>offset:{this.state.offset}</Typography> */}
-      <div style={{ padding:32 ,display: "flex", justifyContent: 'space-between' }}>
-        <Button variant="contained" color="primary" onClick={this.prevPage}>Prev</Button>
-        <Typography>{this.state.page}-{Math.ceil(this.state.total / this.state.size)}</Typography>
-        <Button variant="contained" color="primary" onClick={this.nextPage}>Next</Button>
-      </div>
-      <ProductForm listProduct={this.state.listProduct} ></ProductForm>
-    </div>
+        <div className={classes.toolbar} style={{display:"flex",justifyContent:"space-between"}}>
+          <Button variant="contained" color="primary" onClick={this.prevPage}>Prev</Button>
+          <Typography>{this.state.page}-{Math.ceil(this.state.total / this.state.size)}</Typography>
+          <Button variant="contained" color="primary" onClick={this.nextPage}>Next</Button>
+        </div>
+        <ProductForm listProduct={this.state.listProduct} ></ProductForm>
+      </main>
+      )
   }
 }
 

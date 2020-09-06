@@ -17,9 +17,8 @@ class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <NavForm></NavForm>
         <div style={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
-          <ListForm></ListForm>
+          <NavForm></NavForm>
           <Switch>
             <Route
               component={HomePage}
@@ -39,7 +38,8 @@ class App extends React.Component {
             />
           </Switch>
         </div>
-      </BrowserRouter >)
+      </BrowserRouter >
+    )
   }
 }
 
