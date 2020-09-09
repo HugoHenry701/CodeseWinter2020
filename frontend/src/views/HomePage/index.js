@@ -1,14 +1,27 @@
 import React from 'react';
 import { withSnackbar } from 'notistack'
-import { makeStyles } from '@material-ui/core/styles';
-import InfoIcon from '@material-ui/icons/Info';
 import {
-  Typography,
   Button,
-
+  Typography,
+  Card,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Collapse,
+  IconButton,
+  Avatar,
+  Link,
 } from '@material-ui/core'
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShareIcon from '@material-ui/icons/Share';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { red } from '@material-ui/core/colors'
+
+
 import API from '../../API'
-import ProductForm from './product'
 class HomePage extends React.Component {
   constructor(props) {
     super(props)
@@ -17,6 +30,7 @@ class HomePage extends React.Component {
       total: 0,
       page: 1,
       size: 8,
+      expanded: false,
     }
   }
   async fetchData() {
@@ -37,6 +51,9 @@ class HomePage extends React.Component {
   }
   async componentDidMount() {
     await this.fetchData()
+  }
+  handleExpandClick = () => {
+    this.setState({ expanded: !this.state.expanded })
   }
   prevPage = async () => {
     if (this.state.page > 1) {
@@ -60,27 +77,86 @@ class HomePage extends React.Component {
     }
   }
   render() {
-    const classes = makeStyles((theme) => ({
-      toolbar: theme.mixins.toolbar,
-      content: {
-        flexGrow: 1,
-        padding: theme.spacing(3)
-      }
-    }))
     return (
-      <main style={{marginTop:"65px", }} className={classes.content} >
-        {/* <Typography>Total:{this.state.total}</Typography>
-      <Typography>Page:{this.state.page}</Typography>
-      <Typography>Size:{this.state.size}</Typography>
-      <Typography>offset:{this.state.offset}</Typography> */}
-        <div className={classes.toolbar} style={{display:"flex",justifyContent:"space-between"}}>
-          <Button variant="contained" color="primary" onClick={this.prevPage}>Prev</Button>
+      <div style={{ paddingTop: 65,  }}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <Button variant="contained" style={{backgroundColor:'#fafafa'}} onClick={this.prevPage}>Prev</Button>
           <Typography>{this.state.page}-{Math.ceil(this.state.total / this.state.size)}</Typography>
-          <Button variant="contained" color="primary" onClick={this.nextPage}>Next</Button>
+          <Button variant="contained" style={{backgroundColor:'#fafafa'}} onClick={this.nextPage}>Next</Button>
         </div>
-        <ProductForm listProduct={this.state.listProduct} ></ProductForm>
-      </main>
-      )
+        <div style={{ display: "flex", flexDirection: 'row', justifyContent: 'space-between', flexWrap: 'wrap' }}>
+          {
+            this.state.listProduct.map(
+              (product) => (
+                <Card style={
+                  {
+                    maxWidth: 345,
+                  }
+                }>
+                  <CardHeader
+                    avatar={
+                      <Avatar aria-label='guitar' style={{
+                        backgroundColor: red[500],
+                      }}>
+                        G
+                    </Avatar>
+                    }
+                    action={
+                      <IconButton aria-label='settings' >
+                        <MoreVertIcon />
+                      </IconButton>
+                    }
+                    title={product.display}
+                    subheader={product.priceSale}
+                  />
+                  <CardMedia
+                    style={{
+                      height: 0,
+                      paddingTop: '100%'
+                    }}
+                    image={product.imageUrl}
+                    title={product.display}
+                  />
+                  <CardContent>
+                    <Typography variant='body2' color='textSecondary' component='p' >
+                      {product.description}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <IconButton aria-label='add to favorites'>
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton aria-label='share'>
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton>
+                      <Link href='/shopCart'>
+                        <AddShoppingCartIcon />
+                      </Link>
+                    </IconButton>
+                    <IconButton
+                      onClick={this.handleExpandClick}
+                      aria-expanded={this.state.expanded}
+                      aria-label='show more'
+                    >
+                      <ExpandMoreIcon />
+                    </IconButton>
+                  </CardActions>
+                  <Collapse in={this.state.expanded} timeout='auto' unmountOnExit>
+                    <CardContent>
+                      <Typography paragraph>Provider:{product.provider}</Typography>
+                      <Typography paragraph>Status:{product.status}</Typography>
+                      <Typography paragraph>Ship day:{product.shipday}</Typography>
+                      <Typography paragraph>Available at:{product.created_at}</Typography>
+                    </CardContent>
+                  </Collapse>
+                </Card>
+
+              )
+            )
+          }
+        </div>
+      </div>)
   }
 }
 

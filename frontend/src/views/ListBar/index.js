@@ -54,16 +54,6 @@ export default class index extends Component {
         this.setState({ open: !this.state.open })
     }
     render() {
-        const classes = makeStyles((theme) => ({
-            root: {
-                width: '100%',
-                maxWidth: 360,
-                backgroundColor: theme.palette.background.paper,
-                padding: 8,
-                display: 'flex',
-                flexDirection: 'column',
-            },
-        }))
         return (
             <Paper>
                 <List
@@ -73,7 +63,14 @@ export default class index extends Component {
                         <ListSubheader component='div' id='nested-list-subheader'>
                         </ListSubheader>
                     }
-                    className={classes.root}
+                    style={{
+                        width: '100%',
+                        maxWidth: 360,
+                        backgroundColor:'#fff3e0',
+                        padding: 8,
+                        display: 'flex',
+                        flexDirection: 'column'
+                    }}
                 >
                     <Link to="/">
                         <ListItem button>

@@ -1,27 +1,18 @@
 import React, { Component } from 'react'
 import {
-    Paper,
-    Typography,
-    Button,
     ListItemText,
     ListItem,
     List
 
 } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
 export default class category extends Component {
     render() {
-        const classes = makeStyles((theme) => ({
-            nested: {
-                paddingLeft: theme.spacing(50)
-            }
-        }))
-        return (
+         return (
             <div>
                 {this.props.listCategory.map(
                     category => (
                         <List component='div' disablePadding>
-                            <ListItem button className={classes.nested}>
+                            <ListItem button style={{paddingLeft:70}}>
                                 <ListItemText>{category.display}</ListItemText>
                             </ListItem>
                         </List>
