@@ -9,7 +9,6 @@ import {
   BrowserRouter,
   Route,
 } from 'react-router-dom'
-import ListForm from './views/ListBar'
 import NavForm from './views/NavBar'
 
 class App extends React.Component {
