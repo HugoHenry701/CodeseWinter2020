@@ -38,9 +38,9 @@ class index extends Component {
         return (
             <div>
                 <h1>Student information: </h1>
-                <h2>{this.state.student.fullName}</h2>
-                <h2>{this.state.student.gender}</h2>
-                <h2>{this.state.student.age}</h2>
+                <h2>Student name: {this.state.student.fullName}</h2>
+                <h2>Gender :{this.state.student.gender}</h2>
+                <h2>Age: {this.state.student.age}</h2>
             </div>
         )
     }
