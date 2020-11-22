@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import api from '../../api'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
+import { Button } from '@material-ui/core';
 
 
 class index extends Component {
@@ -37,9 +38,12 @@ class index extends Component {
         const {history} = this.props
         return (
             <div>
+                <Button variant="contained" color="primary" onClick={()=>{
+                    history.push(`/class/${this.state.student.idClass}`)
+                }}>Class</Button>
                 <h1>Student information: </h1>
                 <h2>Student name: {this.state.student.fullName}</h2>
-                <h2>Gender :{this.state.student.gender}</h2>
+                <h2>Gender: {this.state.student.gender}</h2>
                 <h2>Age: {this.state.student.age}</h2>
             </div>
         )
