@@ -2,12 +2,6 @@ import React, { Component } from 'react'
 import api from '../../api'
 import {
     List,
-    ListItem,
-    ListItemIcon,
-    ListItemSecondaryAction,
-    ListItemText,
-    Checkbox,
-    IconButton,
     Tooltip,
     Fab,
     Button
@@ -20,16 +14,11 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import AddIcon from '@material-ui/icons/Add';
-import DeleteIcon from '@material-ui/icons/Delete';
-import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
+import LopHoc from './LopHoc';
 
 class index extends Component {
-    static propTypes = {
-        match: PropTypes.object.isRequired,
-        location: PropTypes.object.isRequired,
-        history: PropTypes.object.isRequired
-    };
+    
     constructor(props) {
         super(props)
         this.state = {
@@ -55,7 +44,7 @@ class index extends Component {
     }
 
     addClass = async (body) => {
-        const req = await api.user.addClass(body ={
+        const req = await api.user.addClass(body = {
             className: this.state.classI.classNameI
         }
         )
@@ -70,7 +59,7 @@ class index extends Component {
     handleChange = (event) => {
         this.setState({
             classI: {
-                [event.target.name]: event.target.value
+                classNameI: event.target.value
             }
         })
     }
@@ -104,38 +93,13 @@ class index extends Component {
     }
 
     render() {
-        const { history } = this.props
 
         return (
             <div>
                 <h1>Total Class: {this.state.listClass.length}</h1>
                 <List>
                     {this.state.listClass.map(c => (
-
-
-                        <ListItem button >
-                            <ListItemIcon>
-                                <Checkbox
-                                    edge="start"
-
-                                />
-                            </ListItemIcon>
-                            <ListItemText id={c.idClass} primary={c.className}
-                                onClick={() => {
-                                    history.push(`/class/${c.idClass}`)
-                                }}
-                            />
-                            <ListItemSecondaryAction >
-                                <IconButton edge="end">
-                                    <DeleteIcon
-                                        pointerEvents id={c.idClass}
-                                        onClick={this.deleteClass}
-
-                                    />
-                                </IconButton>
-                            </ListItemSecondaryAction>
-                        </ListItem>
-
+                        <LopHoc lop={c} />
                     ))
 
                     }
@@ -160,7 +124,6 @@ class index extends Component {
                             margin="dense"
                             id="name"
                             label="Class Name"
-                            name="className"
                             fullWidth
                             onChange={this.handleChange}
                         />
